@@ -4,8 +4,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  name: yup.string().required(),
-  number: yup.string().min(10).max(18).required(),
+  name: yup.string().required('please enter first and last name'),
+  number: yup
+    .string()
+    .min(10)
+    .max(18)
+    .required('please enter the phone number in the format +380932600501'),
 });
 export class FormForPhoneBook extends React.Component {
   state = {
@@ -63,7 +67,7 @@ export class FormForPhoneBook extends React.Component {
           <label>
             Number
             <Field
-              placeholder="063-260-03-01"
+              placeholder="+380932600501"
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
