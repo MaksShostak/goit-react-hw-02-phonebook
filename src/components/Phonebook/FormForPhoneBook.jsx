@@ -1,5 +1,6 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 export class FormForPhoneBook extends React.Component {
   state = {
     name: '',
@@ -11,7 +12,7 @@ export class FormForPhoneBook extends React.Component {
   };
   handleSubmit = event => {
     event.preventDefault();
-
+    console.log(event.target.elements.name.value);
     this.props.onSubmit(this.state);
 
     this.resetInput();
@@ -57,3 +58,6 @@ export class FormForPhoneBook extends React.Component {
     );
   }
 }
+FormForPhoneBook.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

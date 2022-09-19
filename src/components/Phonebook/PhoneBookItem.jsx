@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 export const PhoneBookItem = ({ name, number, OnClick }) => {
   return (
     <li>
@@ -9,4 +10,9 @@ export const PhoneBookItem = ({ name, number, OnClick }) => {
       </button>
     </li>
   );
+};
+PhoneBookItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  OnClick: PropTypes.func.isRequired,
 };

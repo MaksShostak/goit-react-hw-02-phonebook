@@ -3,6 +3,7 @@ import { PhonebookList } from './Phonebook/PhoneBookList';
 import { FormForPhoneBook } from './Phonebook/FormForPhoneBook';
 import { nanoid } from 'nanoid';
 import { FilterForPhoneBook } from './Phonebook/FilterForPhoneBook';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 export class App extends React.Component {
   state = {
     contacts: [
@@ -22,7 +23,14 @@ export class App extends React.Component {
         contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
-      return alert(`${name} is already in contacts`);
+      return Notify.warning(`${name} is already in contacts`, {
+        backOverlay: true,
+        timeout: 3000,
+        position: 'center-top',
+        fontSize: '34px',
+        width: '600px',
+        clickToClose: true,
+      });
     }
 
     const contact = {
