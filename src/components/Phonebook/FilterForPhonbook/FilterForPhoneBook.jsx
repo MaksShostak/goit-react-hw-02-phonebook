@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FilterLabelStyled, StyledInput } from './FilterForPhoneBook.styled';
+
 export const FilterForPhoneBook = ({ filteredValue, onChangefilter }) => {
   return (
-    <label>
+    <FilterLabelStyled>
       Find contacts by name
-      <input type="text" value={filteredValue} onChange={onChangefilter} />
-    </label>
+      <StyledInput
+        type="text"
+        value={filteredValue}
+        onChange={onChangefilter}
+      />
+    </FilterLabelStyled>
   );
 };
+
 FilterForPhoneBook.propTypes = {
   filteredValue: PropTypes.string.isRequired,
   onChangefilter: PropTypes.func.isRequired,

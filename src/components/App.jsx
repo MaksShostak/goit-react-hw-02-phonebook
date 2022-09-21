@@ -1,9 +1,10 @@
 import React from 'react';
 import { PhonebookList } from './Phonebook/PhoneBookList';
-import { FormForPhoneBook } from './Phonebook/FormForPhoneBook';
+import { FormForPhoneBook } from './Phonebook/FormForPhonebook/FormForPhoneBook';
 import { nanoid } from 'nanoid';
-import { FilterForPhoneBook } from './Phonebook/FilterForPhoneBook';
+import { FilterForPhoneBook } from './Phonebook/FilterForPhonbook/FilterForPhoneBook';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 export class App extends React.Component {
   state = {
     contacts: [
@@ -14,10 +15,21 @@ export class App extends React.Component {
     ],
     filter: '',
   };
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+  componentDidMount() {
+    const notparse = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(notparse);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
   forSubmitHandler = data => {
     // console.log(data);
     const { name, number } = data;
-
     if (
       this.state.contacts.some(
         contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -25,7 +37,7 @@ export class App extends React.Component {
     ) {
       return Notify.warning(`${name} is already in contacts`, {
         backOverlay: true,
-        timeout: 3000,
+        timeout: 2000,
         position: 'center-top',
         fontSize: '34px',
         width: '600px',
@@ -47,18 +59,17 @@ export class App extends React.Component {
       // ) {
       //   return alert(`${name} is already in contacts`);
       // }
-
       return {
         contacts: [contact, ...prevState.contacts],
       };
     });
   };
+
   changeFilter = event => {
     const { value } = event.currentTarget;
-    console.log(value);
+
     this.setState({ filter: value });
   };
-
   handleDeleteContact = idContact => {
     this.setState(prevState => {
       return {
@@ -78,6 +89,7 @@ export class App extends React.Component {
       );
     });
   };
+
   render() {
     // console.log(this.state.contacts);
     const { filter } = this.state;
@@ -86,6 +98,7 @@ export class App extends React.Component {
     return (
       <div
         style={{
+          backgroundColor: 'rgb(225, 179, 152)',
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
@@ -97,7 +110,17 @@ export class App extends React.Component {
       >
         React homework template
         <h1>Phonebook</h1>
-        <FormForPhoneBook onSubmit={this.forSubmitHandler} />
+        {/* {this.state.contacts.length > 0 && (
+          <p>
+            You have: {this.state.contacts.length}
+            {this.state.contacts.length === 1 ? ' contact' : ' contacts'} in
+            your phonebook
+          </p>
+        )} */}
+        <FormForPhoneBook
+          onSubmit={this.forSubmitHandler}
+          data={this.state.contacts}
+        />
         <h2>Contacts</h2>
         <FilterForPhoneBook
           filteredValue={filter}

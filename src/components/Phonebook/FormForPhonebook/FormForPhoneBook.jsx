@@ -1,16 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { ButtonAdd } from './FormForPhoneBook.styled';
+import {
+  StyledForm,
+  StyledField,
+  StyledLabel,
+} from './FormForPhoneBook.styled';
 
 const schema = yup.object().shape({
-  name: yup.string().required('please enter first and last name'),
+  name: yup.string().required('Please enter first and last name'),
   number: yup
     .string()
     .min(10)
     .max(18)
-    .required('please enter the phone number in the format +380932600501'),
+    .required('Please enter the phone number in the format +380932600501'),
 });
+
 export class FormForPhoneBook extends React.Component {
   state = {
     name: '',
@@ -27,6 +34,7 @@ export class FormForPhoneBook extends React.Component {
 
   //   this.resetInput();
   // };
+
   handleSubmitFormik = (values, { resetForm }) => {
     // console.log(values);
     this.props.onSubmit(values);
@@ -48,11 +56,18 @@ export class FormForPhoneBook extends React.Component {
         onSubmit={this.handleSubmitFormik}
         validationSchema={schema}
       >
-        <Form>
+        <StyledForm>
+          {this.props.data.length > 0 && (
+            <p>
+              You have: {this.props.data.length}
+              {this.props.data.length === 1 ? ' contact' : ' contacts'} in your
+              phonebook
+            </p>
+          )}
           {/* onSubmit={this.handleSubmit} */}
-          <label>
+          <StyledLabel>
             Name
-            <Field
+            <StyledField
               placeholder="Name Surname"
               type="text"
               name="name"
@@ -63,10 +78,10 @@ export class FormForPhoneBook extends React.Component {
               // onChange={this.handleAddContact}
             />
             <ErrorMessage name="name" component="div" />
-          </label>
-          <label>
+          </StyledLabel>
+          <StyledLabel>
             Number
-            <Field
+            <StyledField
               placeholder="+380932600501"
               type="tel"
               name="number"
@@ -77,13 +92,14 @@ export class FormForPhoneBook extends React.Component {
               // onChange={this.handleAddContact}
             />
             <ErrorMessage name="number" component="div" />
-          </label>
-          <button type="submit">Add contact</button>
-        </Form>
+          </StyledLabel>
+          <ButtonAdd type="submit">Add contact</ButtonAdd>
+        </StyledForm>
       </Formik>
     );
   }
 }
+
 FormForPhoneBook.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };

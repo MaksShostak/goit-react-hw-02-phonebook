@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
+import { ButtonAdd } from './FormForPhonebook/FormForPhoneBook.styled';
+
 export const PhoneBookItem = ({ name, number, OnClick }) => {
   return (
-    <li>
+    <>
       <p>
         {name}: {number}
       </p>
-      <button type="submit" onClick={OnClick}>
+      <ButtonAdd type="submit" onClick={OnClick}>
         Delete
-      </button>
-    </li>
+      </ButtonAdd>
+    </>
   );
 };
+
 PhoneBookItem.propTypes = {
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
