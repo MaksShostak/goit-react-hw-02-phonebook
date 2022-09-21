@@ -99,7 +99,7 @@ export class App extends React.Component {
       <div
         style={{
           backgroundColor: 'rgb(225, 179, 152)',
-          height: '100vh',
+          // height: '100vh',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
