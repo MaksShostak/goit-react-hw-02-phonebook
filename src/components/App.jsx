@@ -23,7 +23,7 @@ export class App extends React.Component {
   componentDidMount() {
     const notparse = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(notparse);
-    console.log(parsedContacts.length);
+    // console.log(parsedContacts.length);
     if (parsedContacts.length) {
       this.setState({ contacts: parsedContacts });
     }
