@@ -11,4 +11,16 @@ export const StyledInput = styled.input`
   width: 400px;
   font-size: ${({ theme }) => theme.fontSizes.ml};
   border-radius: ${({ theme }) => theme.radii.lg};
+  box-shadow: 5px 5px 5px ${({ theme }) => theme.colors.mycolor};
+  transition: all 300ms ease-in-out;
+  border: 4px solid;
+  &:hover,
+  :focus,
+  :active {
+    background-color: ${({ theme }) => theme.colors.accent};
+    border: 4px solid;
+    border-color: ${({ theme }) => theme.colors.mycolor};
+    transform: scale(1.01);
+    box-shadow: 5px 5px 5px ${({ theme }) => theme.colors.black};
+  }
 `;

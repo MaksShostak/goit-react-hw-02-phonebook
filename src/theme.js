@@ -7,7 +7,7 @@ export const theme = {
     primary: '#07c',
     bglite: 'rgb(225, 179, 152)',
     secondary: '#05a',
-    accent: 'rgb(127, 180, 236);',
+    accent: 'lightblue',
     yellow: 'rgb(244, 93, 6)',
     muted: '#f6f6f6',
     mycolor: 'rgb(227, 14, 85)',
