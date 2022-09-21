@@ -23,7 +23,8 @@ export class App extends React.Component {
   componentDidMount() {
     const notparse = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(notparse);
-    if (parsedContacts) {
+    console.log(parsedContacts.length);
+    if (parsedContacts.length > 0) {
       this.setState({ contacts: parsedContacts });
     }
   }
@@ -47,7 +48,7 @@ export class App extends React.Component {
 
     const contact = {
       id: nanoid(),
-      name,
+      name: name.toUpperCase(),
       number,
     };
 
