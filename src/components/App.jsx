@@ -32,7 +32,7 @@ export class App extends React.Component {
     // console.log(data);
     const { name, number } = data;
     if (
-      this.state.contacts.some(
+      this.state.contacts.find(
         contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
@@ -53,13 +53,6 @@ export class App extends React.Component {
     };
 
     this.setState(prevState => {
-      // if (
-      //   prevState.contacts.some(
-      //     contact => contact.name.toLowerCase() === name.toLowerCase()
-      //   )
-      // ) {
-      //   return alert(`${name} is already in contacts`);
-      // }
       return {
         contacts: [contact, ...prevState.contacts],
       };
@@ -71,7 +64,8 @@ export class App extends React.Component {
 
     this.setState({ filter: value });
   };
-  handleDeleteContact = idContact => {
+
+  handleDeleteContact = (idContact, contacts) => {
     this.setState(prevState => {
       return {
         contacts: prevState.contacts.filter(
@@ -79,7 +73,12 @@ export class App extends React.Component {
         ),
       };
     });
+    console.log(contacts);
+    if (contacts.length === 1) {
+      this.setState({ filter: '' });
+    }
   };
+
   getFilteredContact = () => {
     const { contacts, filter } = this.state;
     const normalaizedFilter = filter.toLowerCase();

@@ -9,7 +9,7 @@ export const PhonebookList = ({ contacts, onDelete }) => {
         return (
           <li key={id}>
             <PhoneBookItem
-              OnClick={() => onDelete(id)}
+              OnClick={() => onDelete(id, contacts)}
               name={name}
               number={number}
             />
