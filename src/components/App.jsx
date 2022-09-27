@@ -65,24 +65,25 @@ export class App extends React.Component {
     this.setState({ filter: value });
   };
 
-  handleDeleteContact = (idContact, contacts) => {
+  handleDeleteContact = idContact => {
     this.setState(prevState => {
+      const filtered = prevState.contacts.filter(
+        contact => contact.id !== idContact
+      );
       return {
-        contacts: prevState.contacts.filter(
-          contact => contact.id !== idContact
-        ),
+        contacts: filtered,
+        filter: this.getFilteredContact(filtered).length
+          ? prevState.filter
+          : '',
       };
     });
-    console.log(contacts);
-    if (contacts.length === 1) {
-      this.setState({ filter: '' });
-    }
   };
 
-  getFilteredContact = () => {
+  getFilteredContact = filtered => {
     const { contacts, filter } = this.state;
     const normalaizedFilter = filter.toLowerCase();
-    return contacts.filter(contact => {
+    const active = filtered ? filtered : contacts;
+    return active.filter(contact => {
       return (
         contact.name.toLowerCase().includes(normalaizedFilter) ||
         contact.number.includes(filter)
